@@ -1,0 +1,90 @@
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+/* Wrappers */
+.content-wrapper{
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+}
+
+.calc-wrapper{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.screen-wrapper{
+    border: 1px solid purple;
+    margin: 5px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.screen-wrapper p{
+    font-family: Inter, sans-serif;
+    font-size: 50px;
+    margin: 5px;
+}
+
+/* This is our grid container */
+.btn-wrapper{
+    border: 1px solid blue;
+    margin: 5px;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(4, 100px);
+    grid-auto-rows: 100px;
+}
+
+.btn-wrapper #clear {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    background-color: rgba(255, 0, 0, 0.121);
+}
+
+.btn-wrapper #delete {
+    grid-column: 3 / span 2;
+}
+
+/* Button Styling */
+button {
+  align-items: center;
+  background: #ffffff;
+  border: 0 solid #E2E8F0;
+  box-shadow: 0 4px 6px -1px rgba(24, 23, 23, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  color: #1A202C;
+  display: inline-flex;
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 24px;
+  overflow-wrap: break-word;
+  padding: 24px;
+  text-decoration: none;
+  width: auto;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+footer{
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+}
