@@ -1,30 +1,88 @@
 //VARIABLES
 const btnClear = document.getElementById('clear');
 const btnDel = document.getElementById('delete');
-const btnAdd = document.getElementById('add');
-const btnSub = document.getElementById('subtract');
-const btnMul = document.getElementById('multiply');
-const btnDiv = document.getElementById('divide');
 const btnDot = document.getElementById('dot');
 const btnEquals = document.getElementById('equals');
-const btn1 = document.getElementById('one');
-const btn2 = document.getElementById('two');
-const btn3 = document.getElementById('three');
-const btn4 = document.getElementById('four');
-const btn5 = document.getElementById('five');
-const btn6 = document.getElementById('six');
-const btn7 = document.getElementById('seven');
-const btn8 = document.getElementById('eight');
-const btn9 = document.getElementById('nine');
-const btn0 = document.getElementById('0');
+
+const numberButtons = document.querySelectorAll('[data-number]');
+const operandButtons = document.querySelectorAll('[data-operand]');
 const screen = document.getElementById('screen');
 
 let screenVal = 0;
+let firstNum = 0;
+let secondNum = 0;
+let operand;
 
 //LISTENERS
 
+//All 4 operands
+operandButtons.forEach((button) => button.addEventListener('click', function(){
+    operand = button.id;
+    for (let i = 0; i < operandButtons.length; i++){
+        operandButtons[i].disabled = true;
+    }
+    console.log("Chosen operand is " + operand);
+    firstNum = screen.innerText;
+    console.log("First num is " + firstNum);
+    btnEquals.disabled = false;
+    resetScreen();
+}));
+
+//Equals
+btnEquals.addEventListener('click', () => {
+    secondNum = screen.innerText;
+    console.log(`Second num is ${secondNum}`);
+    screen.innerText = (operate(operand, firstNum, secondNum));
+    btnEquals.disabled = true;
+    for (let i = 0; i < operandButtons.length; i++){
+        operandButtons[i].disabled = false;
+    }
+});
+
+//All number buttons
+numberButtons.forEach((button) => button.addEventListener('click', function(){
+    appendNum(button.textContent)
+}));
+
+//Clear listener
+btnClear.addEventListener('click', () => {
+    screen.innerText = 0;
+    firstNum = 0;
+    secondNum = 0;
+    btnEquals.disabled = true;
+});
+
+//Delete latest num
+btnDel.addEventListener('click', function(){
+    if (screen.innerText == 0 || screen.innerText.length === 1){
+        screen.innerText = 0;
+        return;
+    }
+    newVal = screen.innerText;
+    newVal = newVal.slice(0, newVal.length - 1);
+    screen.innerText = newVal;
+});
 
 //FUNCTIONS
+
+function evaluate(){
+
+}
+
+//Check if screen is just 0 if so reset otherwise append num
+function appendNum(number){
+    if (screen.innerText == 0){
+        screen.innerText = '';
+    }
+    // console.log(number);
+    screen.innerText = screen.innerText + number;
+    // console.log(typeof(number)); its a STRING
+}
+
+function resetScreen(){
+    screen.innerText = 0;
+}
+
 function add(num1, num2){
     return num1+num2;
 }
@@ -42,17 +100,19 @@ function divide(num1, num2){
 }
 
 function operate(operator, num1, num2){
+    let a = Number(num1);
+    let b = Number(num2);
     if (operator === 'add'){
-        return(add(num1,num2));
+        return(add(a,b));
     }
     else if (operator === 'subtract'){
-        return(subtract(num1,num2));
+        return(subtract(a,b));
     }
     else if (operator === 'multiply'){
-        return(multiply(num1,num2));
+        return(multiply(a,b));
     }
     else if (operator === 'divide'){
-        return(divide(num1,num2));
+        return(divide(a,b));
     }
 }
 
