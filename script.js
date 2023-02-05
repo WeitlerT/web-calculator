@@ -1,4 +1,4 @@
-//VARIABLES
+//VARIABLES------------------
 const btnClear = document.getElementById('clear');
 const btnDel = document.getElementById('delete');
 const btnDot = document.getElementById('dot');
@@ -13,9 +13,9 @@ let firstNum = 0;
 let secondNum = 0;
 let operand;
 
-//LISTENERS
+//LISTENERS------------------
 
-//All 4 operands
+//All 4 operand listeners
 operandButtons.forEach((button) => button.addEventListener('click', function(){
     operand = button.id;
     for (let i = 0; i < operandButtons.length; i++){
@@ -25,21 +25,23 @@ operandButtons.forEach((button) => button.addEventListener('click', function(){
     firstNum = screen.innerText;
     console.log("First num is " + firstNum);
     btnEquals.disabled = false;
+    btnDot.disabled = false;
     resetScreen();
 }));
 
-//Equals
+//Equals listener
 btnEquals.addEventListener('click', () => {
     secondNum = screen.innerText;
     console.log(`Second num is ${secondNum}`);
     screen.innerText = (operate(operand, firstNum, secondNum));
     btnEquals.disabled = true;
+    btnDot.disabled = false;
     for (let i = 0; i < operandButtons.length; i++){
         operandButtons[i].disabled = false;
     }
 });
 
-//All number buttons
+//All number button listeners
 numberButtons.forEach((button) => button.addEventListener('click', function(){
     appendNum(button.textContent)
 }));
@@ -50,27 +52,39 @@ btnClear.addEventListener('click', () => {
     firstNum = 0;
     secondNum = 0;
     btnEquals.disabled = true;
+    btnDot.disabled = false;
 });
 
-//Delete latest num
+//Delete listener
 btnDel.addEventListener('click', function(){
     if (screen.innerText == 0 || screen.innerText.length === 1){
         screen.innerText = 0;
         return;
     }
+
     newVal = screen.innerText;
     newVal = newVal.slice(0, newVal.length - 1);
     screen.innerText = newVal;
+
+    //Check if decimal is present. If not re-enable button
+    if (screen.innerText.includes(".") == false){
+        btnDot.disabled = false;
+    }
 });
 
-//FUNCTIONS
+//Decimal listener
+btnDot.addEventListener('click', function(){
+    screen.innerText = screen.innerText + this.innerText;
+    btnDot.disabled = true;
+});
+
+//FUNCTIONS------------------
 
 //Check if screen is just 0 if so reset otherwise append num
 function appendNum(number){
-    if (screen.innerText == 0){
+    if (screen.innerText === "0"){
         screen.innerText = '';
     }
-    // console.log(number);
     screen.innerText = screen.innerText + number;
     // console.log(typeof(number)); its a STRING
 }
@@ -114,5 +128,3 @@ function operate(operator, num1, num2){
         return(divide(a,b));
     }
 }
-
-console.log(operate('divide',5,10));
