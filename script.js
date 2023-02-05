@@ -65,10 +65,6 @@ btnDel.addEventListener('click', function(){
 
 //FUNCTIONS
 
-function evaluate(){
-
-}
-
 //Check if screen is just 0 if so reset otherwise append num
 function appendNum(number){
     if (screen.innerText == 0){
@@ -96,6 +92,9 @@ function multiply(num1, num2){
 }
 
 function divide(num1, num2){
+    if (num1 == 0 || num2 == 0){
+        return "ERROR";
+    }
     return num1/num2;
 }
 
